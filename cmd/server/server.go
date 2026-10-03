@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Deahesi/portfolio-backend/internal/app"
+	"github.com/Deahesi/deahesi-os-backend/internal/app"
 	"github.com/joho/godotenv"
 )
 
@@ -28,7 +28,7 @@ func main() {
 }
 
 func run(ctx context.Context) error {
-	application, err := app.NewApplication(ctx)
+	application, err := app.NewApplication()
 	if err != nil {
 		return err
 	}

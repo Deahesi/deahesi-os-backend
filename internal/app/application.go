@@ -3,14 +3,23 @@ package app
 import (
 	"context"
 	"fmt"
+
+	"github.com/Deahesi/deahesi-os-backend/internal/config"
 )
 
 type Application struct {
 	server *Server
 }
 
-func NewApplication(ctx context.Context) (*Application, error) {
-	server, err := NewServer(ctx)
+func NewApplication() (*Application, error) {
+	cfg := config.NewConfig()
+	services := NewServices(cfg)
+
+	server, err := NewServer(
+		services.aiService,
+		services.llmService,
+	)
+
 	if err != nil {
 		return nil, fmt.Errorf("server: %w", err)
 	}

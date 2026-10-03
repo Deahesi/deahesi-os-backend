@@ -5,16 +5,25 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
-	"github.com/Deahesi/portfolio-backend/internal/httpapi"
+	"github.com/Deahesi/deahesi-os-backend/internal/ai"
+	"github.com/Deahesi/deahesi-os-backend/internal/httpapi"
+	"github.com/Deahesi/deahesi-os-backend/internal/llm"
 )
 
 type Server struct {
 	server *http.Server
 }
 
-func NewServer(ctx context.Context) (*Server, error) {
-	api := httpapi.NewServer()
+func NewServer(
+	aiService *ai.AIService,
+	llmService *llm.LLMService,
+) (*Server, error) {
+	api := httpapi.NewServer(
+		aiService,
+		llmService,
+	)
 
 	server := &http.Server{
 		Addr:    ":8080",
@@ -44,7 +53,7 @@ func (server *Server) Serve(ctx context.Context) error {
 	case <-ctx.Done():
 	}
 
-	shutdownCtx, close := context.WithTimeout(context.Background(), 5000)
+	shutdownCtx, close := context.WithTimeout(context.Background(), 5*time.Second)
 	defer close()
 
 	if err := server.server.Shutdown(shutdownCtx); err != nil {
