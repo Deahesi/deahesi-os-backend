@@ -30,7 +30,7 @@ func NewConfig() *Config {
 
 	return &Config{
 		LLM: LLMConfig{
-			OpenRouterAPI: getEnv("OPEN_ROUTER_API_KEY", ""),
+			OpenRouterAPI: getEnv("OPENROUTER_API_KEY", getEnv("OPEN_ROUTER_API_KEY", "")),
 			SystemPrompt:  getEnv("LLM_SYSTEM_PROMPT", ""),
 			Model:         getEnv("LLM_MODEL", "qwen/qwen3.8-27b:free"),
 		},

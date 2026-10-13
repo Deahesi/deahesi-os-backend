@@ -28,7 +28,7 @@ func main() {
 }
 
 func run(ctx context.Context) error {
-	application, err := app.NewApplication()
+	application, err := app.NewApplication(ctx)
 	if err != nil {
 		return err
 	}

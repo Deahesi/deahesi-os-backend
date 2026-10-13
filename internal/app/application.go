@@ -11,13 +11,15 @@ type Application struct {
 	server *Server
 }
 
-func NewApplication() (*Application, error) {
+func NewApplication(ctx context.Context) (*Application, error) {
 	cfg := config.NewConfig()
-	services := NewServices(cfg)
+	services, err := NewServices(ctx, cfg)
+	if err != nil {
+		return nil, err
+	}
 
 	server, err := NewServer(
 		services.aiService,
-		services.llmService,
 	)
 
 	if err != nil {

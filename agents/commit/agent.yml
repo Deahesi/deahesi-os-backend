@@ -1,0 +1,28 @@
+version: "1.0"
+agent:
+  name: commit
+  description: Agent for make git commits
+  provider: openrouter
+  model: deepseek/deepseek-v4-flash-0731
+  temperature: 0.2
+  max_output_tokens: 200
+  work_dir: .
+  reasoning: false
+  system_prompt: "You are an expert automated git commit message generator. Analyze the provided git diff and generate a concise, professional commit message. \n\nRules:\n1. Follow the Conventional Commits specification (e.g., feat(auth): add login validation / fix(db): resolve connection timeout).\n2. Output ONLY the commit message itself. Do not include any introductory text, greetings, explanations, markdown blocks, or quotes.\n3. Briefly explain \"why\" and \"what\" changed, rather than just listing modified files.\n4. Keep the first line (the summary) under 50 characters if possible.\n"
+  memory:
+    type: local_file
+    path: ./.agent_history.json
+  tools:
+    -
+      type: builtin
+      name: read_file
+    -
+      type: builtin
+      name: search_files
+    -
+      type: builtin
+      name: list_files
+    -
+      type: builtin
+      name: execute_command
+    

@@ -9,7 +9,6 @@ import (
 
 	"github.com/Deahesi/deahesi-os-backend/internal/ai"
 	"github.com/Deahesi/deahesi-os-backend/internal/httpapi"
-	"github.com/Deahesi/deahesi-os-backend/internal/llm"
 )
 
 type Server struct {
@@ -18,11 +17,9 @@ type Server struct {
 
 func NewServer(
 	aiService *ai.AIService,
-	llmService *llm.LLMService,
 ) (*Server, error) {
 	api := httpapi.NewServer(
 		aiService,
-		llmService,
 	)
 
 	server := &http.Server{

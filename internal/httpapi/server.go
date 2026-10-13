@@ -5,7 +5,6 @@ import (
 
 	"github.com/Deahesi/deahesi-os-backend/internal/ai"
 	aihandlers "github.com/Deahesi/deahesi-os-backend/internal/httpapi/handlers/ai-handlers"
-	"github.com/Deahesi/deahesi-os-backend/internal/llm"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -15,7 +14,6 @@ type Server struct {
 
 func NewServer(
 	aiService *ai.AIService,
-	llmService *llm.LLMService,
 ) *Server {
 	router := chi.NewRouter()
 
